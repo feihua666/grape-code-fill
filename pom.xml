@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>grape</groupId>
+    <artifactId>grape-code-fill</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <description>代码填充，通过注解的方式，在编译前填充代码</description>
+    <properties>
+        <auto-service.version>1.0-rc2</auto-service.version>
+        <!-- 定义jdk版本 -->
+        <java.version>1.8</java.version>
+    </properties>
+    <dependencies>
+        <dependency>
+            <groupId>com.google.auto.service</groupId>
+            <artifactId>auto-service</artifactId>
+            <version>${auto-service.version}</version>
+        </dependency>
+    </dependencies>
+</project>
