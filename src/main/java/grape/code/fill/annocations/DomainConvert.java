@@ -12,7 +12,7 @@ import java.lang.annotation.Target;
  * Created at 2019/7/28 19:25
  */
 @Target({ElementType.METHOD})
-@Retention(RetentionPolicy.CLASS)
+@Retention(RetentionPolicy.SOURCE)
 public @interface DomainConvert {
     // 判断是否检查是否为空
     boolean checkNull() default true;
