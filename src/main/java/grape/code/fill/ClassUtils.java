@@ -1,6 +1,7 @@
 package grape.code.fill;
 
 import com.sun.tools.javac.code.Symbol;
+import com.sun.tools.javac.code.Symtab;
 import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.util.List;
@@ -28,9 +29,13 @@ public class ClassUtils {
         return getMethodFields(c, get,includeSuper);
     }
     public static List<Symbol.MethodSymbol> getMethodFields(Symbol.ClassSymbol c,String methodPrefix, boolean includeSuper){
+        if(c.members_field != null && c.members_field.getElements() !=null){
+
+        }else {
+            return List.nil();
+        }
         Iterator<Symbol> iterator =  c.members_field.getElements().iterator();
         Symbol symbol = null;
-
         ListBuffer list = new ListBuffer();
         while ((symbol = iterator.next()) != null){
             if (symbol instanceof Symbol.MethodSymbol) {
@@ -43,9 +48,18 @@ public class ClassUtils {
                     list.append((Symbol.MethodSymbol) symbol);
                 }
 
-                DebugTool.info(symbol.toString());
+            }
+
+        }
+        if (includeSuper) {
+            Symbol.ClassSymbol superClass = (Symbol.ClassSymbol) c.getSuperclass().asElement();
+            if (!superClass.fullname.toString().equals(Object.class.getCanonicalName())) {
+                c = superClass;
+                list.addAll(getMethodFields(c,methodPrefix,includeSuper));
             }
         }
+
+
         return list.toList();
     }
 

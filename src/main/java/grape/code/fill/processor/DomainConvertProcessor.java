@@ -11,7 +11,6 @@ import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.tree.TreeTranslator;
 import com.sun.tools.javac.util.*;
 import grape.code.fill.ClassUtils;
-import grape.code.fill.DebugTool;
 import grape.code.fill.annocations.DomainConvert;
 
 import javax.annotation.processing.Processor;
@@ -34,13 +33,6 @@ public class DomainConvertProcessor extends BaseProcessor {
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
-        DebugTool.info("process ");
-        for (TypeElement annotation : annotations) {
-            DebugTool.info("annotation===" + annotation.getQualifiedName().toString());
-        }
-        for (Element rootElement : roundEnv.getRootElements()) {
-            DebugTool.info("rootElement===" + rootElement.toString());
-        }
 
 
         final Context context = ((JavacProcessingEnvironment) processingEnv).getContext();
