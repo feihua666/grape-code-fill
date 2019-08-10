@@ -11,13 +11,14 @@ import com.sun.tools.javac.tree.TreeMaker;
 import com.sun.tools.javac.tree.TreeTranslator;
 import com.sun.tools.javac.util.*;
 import grape.code.fill.ClassUtils;
-import grape.code.fill.annocations.DomainConvert;
+import grape.code.fill.annocations.PojoConvert;
 
 import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.TypeElement;
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -25,11 +26,9 @@ import java.util.Set;
  * Created by yangwei
  * Created at 2019/7/28 19:50
  */
-@SupportedAnnotationTypes({"grape.code.fill.annocations.DomainConvert"})
 @AutoService(Processor.class)
 public class DomainConvertProcessor extends BaseProcessor {
 
-    private static String domainConvert = "grape.code.fill.annocations.DomainConvert";
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
@@ -41,7 +40,7 @@ public class DomainConvertProcessor extends BaseProcessor {
         final Names names =Names.instance(context);
         Set<? extends Element> elements = roundEnv.getRootElements();
 
-        for (Element element : roundEnv.getElementsAnnotatedWith(DomainConvert.class)) {
+        for (Element element : roundEnv.getElementsAnnotatedWith(PojoConvert.class)) {
             JCTree.JCMethodDecl jcMethodDecl = (JCTree.JCMethodDecl) elementUtils.getTree(element);
             jcMethodDecl.accept(new MethodTreeTranslator());
 
@@ -59,7 +58,7 @@ public class DomainConvertProcessor extends BaseProcessor {
 
             ListBuffer listBuffer = new ListBuffer<>();
             // 获取注解
-            JCTree.JCAnnotation annotation = ClassUtils.getAnnotation(jcMethodDecl,DomainConvert.class);
+            JCTree.JCAnnotation annotation = ClassUtils.getAnnotation(jcMethodDecl, PojoConvert.class);
             // 获取注解定义的默认值
             Boolean checkNullDefault = ClassUtils.getAnnotationValueDefaultBoolean(annotation,"checkNull");
             // 获取注解使用的值
@@ -112,5 +111,12 @@ public class DomainConvertProcessor extends BaseProcessor {
             jcMethodDecl.body = treeMaker.Block(0, listBuffer.toList());
             super.visitMethodDef(jcMethodDecl);
         }
+    }
+
+    @Override
+    public Set<String> getSupportedAnnotationTypes() {
+        Set<String> set = new HashSet<String>(1);
+        set.add(PojoConvert.class.getCanonicalName());
+        return set;
     }
 }

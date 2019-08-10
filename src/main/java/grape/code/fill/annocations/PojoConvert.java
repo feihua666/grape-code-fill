@@ -13,7 +13,7 @@ import java.lang.annotation.Target;
  */
 @Target({ElementType.METHOD})
 @Retention(RetentionPolicy.SOURCE)
-public @interface DomainConvert {
+public @interface PojoConvert {
     // 判断是否检查是否为空
     boolean checkNull() default true;
 }

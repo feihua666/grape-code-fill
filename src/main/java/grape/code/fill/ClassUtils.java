@@ -1,16 +1,10 @@
 package grape.code.fill;
 
 import com.sun.tools.javac.code.Symbol;
-import com.sun.tools.javac.code.Symtab;
-import com.sun.tools.javac.code.Type;
 import com.sun.tools.javac.tree.JCTree;
 import com.sun.tools.javac.util.List;
 import com.sun.tools.javac.util.ListBuffer;
-import grape.code.fill.annocations.DomainConvert;
 
-import java.lang.annotation.Annotation;
-import java.lang.reflect.Field;
-import java.lang.reflect.Method;
 import java.util.Iterator;
 
 /**

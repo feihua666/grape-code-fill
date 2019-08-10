@@ -309,4 +309,5 @@ public abstract class BaseProcessor extends AbstractProcessor {
     public SourceVersion getSupportedSourceVersion() {
         return SourceVersion.latest();
     }
+
 }
